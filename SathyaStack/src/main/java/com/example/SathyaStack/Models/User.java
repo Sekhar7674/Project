@@ -18,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class User {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long userId;
 	
 	private String name;
@@ -30,7 +30,7 @@ public class User {
 	private String location;
 	private boolean isSeller;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
 	@JsonIgnoreProperties("user")
 	private Set<Book> books;
 

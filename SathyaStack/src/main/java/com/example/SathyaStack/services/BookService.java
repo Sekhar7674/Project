@@ -24,6 +24,10 @@ public class BookService {
 		return bookRepo.findAll();
 	}
 	
+	public Optional<Book> getBook(Long bookId) {
+		return bookRepo.findById(bookId);
+	}
+	
 	public String saveBook(Long userId, Book book) {
 		Optional<User> userFound = userService.getUser(userId);
 		if(userFound.isPresent()) {
@@ -33,8 +37,36 @@ public class BookService {
 		}else return "No User Found";
 	}
 	
-	public Optional<Book> getBook(Long bookId) {
-		Optional<Book> bookFound = bookRepo.findById(bookId);
-		return bookFound;
+	public String updateBook(Long bookId, Book book, Long userId) {
+		
+		Optional<User> userFound = userService.getUser(userId);
+		if(userFound.isPresent()) {
+			Optional<Book> bookFound = bookRepo.findById(bookId);
+			if(bookFound.isPresent()) {
+				book.setBookId(bookFound.get().getBookId());
+				book.setUser(userFound.get());
+				bookRepo.save(book);
+				return "Book Updated Success";
+			}else {
+				return "No Book FOund";
+			}
+		}else {
+			return "No User Found";
+		}
+		
 	}
+	
+	public String deleteBook(Long bookId) {
+		Optional<Book> bookFound = bookRepo.findById(bookId);
+		if(bookFound.isPresent()) {
+			bookRepo.deleteById(bookId);
+			return "Deletetion Success";
+		}else {
+			return "No Book FOund";
+		}
+	}
+	
+	
+	
+	
 }

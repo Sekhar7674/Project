@@ -5,11 +5,13 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.SathyaStack.Models.User;
 import com.example.SathyaStack.repositories.UserRepo;
 
 @Service
+@Transactional
 public class UserService {
 
 	
@@ -25,14 +27,14 @@ public class UserService {
 	}
 	
 	public Optional<User> getUser(long id) {
-		Optional<User> userFound = userRepo.findById(id);
-		return userFound;
+		 return userRepo.findById(id);
 	}
 	
 	public String updateUser(long id, User user) {
 		Optional<User> userFound = getUser(id);
 		if(userFound.isPresent()) {
-			user.setUserId(userFound.get().getUserId());
+			User userExisting = userFound.get();
+			user.setUserId(userExisting.getUserId());
 			userRepo.save(user);
 			return "Updation Success";
 		}else return "No User Found";
