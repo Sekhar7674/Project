@@ -18,10 +18,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.SathyaStack.Models.User;
-import com.example.SathyaStack.repositories.UserRepo;
 import com.example.SathyaStack.services.UserService;
 
-@CrossOrigin(originPatterns = "http://localhost:3000/")
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class UserController {
 
@@ -38,7 +37,7 @@ public class UserController {
 	private ResponseEntity<User> getUser(@PathVariable Long userId){
 		Optional<User> userFound = userService.getUser(userId);
 		if(userFound.isPresent()) {
-			return new ResponseEntity<User>(userFound.get(), HttpStatus.FOUND);
+			return new ResponseEntity<User>(userFound.get(),HttpStatus.OK);
 		}else {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
@@ -60,6 +59,10 @@ public class UserController {
 	private ResponseEntity<String> deleteUser(@PathVariable Long userId){
 		String response = userService.deleteUser(userId);																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																							
 		return new ResponseEntity<String>(response, HttpStatus.OK);
+	}
+	@PostMapping("/loginUser")
+	private ResponseEntity<Long> loginUser(@RequestBody User user){
+		return ResponseEntity.ok(userService.userLogin(user));
 	}
 	
 }

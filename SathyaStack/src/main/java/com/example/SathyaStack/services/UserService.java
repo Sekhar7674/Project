@@ -47,4 +47,11 @@ public class UserService {
 			return "Deletion Success";
 		}else return "No User Found";
 	}
+	
+	public long userLogin(User user) {
+		Optional<User> userFound=userRepo.findByNameAndPassword(user.getName(),user.getPassword());
+		if(userFound.isPresent())
+		return userFound.get().getUserId();
+		else return 0;
+	}
 }
