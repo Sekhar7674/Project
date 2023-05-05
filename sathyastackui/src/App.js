@@ -1,31 +1,17 @@
-import { useState,useEffect } from "react";
-import axios from "axios";
-
+import {Route,Routes} from 'react-router-dom'
+import Home from './Components/Home';
+import Registration from './Components/Registration';
+import Login from './Components/Login';
+import User from './Components/User';
 function App() {
-  const [data, setData] = useState([])
-  const [status, setStatus] = useState()
-
-
-  useEffect(()=>{
-    axios.get("http://127.0.0.1:8090/getUsers")
-    .then(response=>{
-      setData(response.data)
-      setStatus(response.status)
-    })
-  }, [])
-
-  return <>
   
-  <h2>Status: {status}</h2>
-    <ul>
-      {
-        data.map(user=> <li>
-          {user.name}<br></br>
-          {user.email}
-        </li>)
-      }
-    </ul>
- 
+  return <>
+  <Routes>
+    <Route path="/" element={<Home/>} />
+    <Route path="/reg" element={<Registration/>} />
+    <Route path="/log" element={<Login/>} />
+    <Route path='/user/:id' element={<User id={3} />}/>
+  </Routes>
   </>
 }
 
