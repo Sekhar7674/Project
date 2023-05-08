@@ -1,7 +1,7 @@
 
 const HeaderElement = ()=>{
     return <>
-     <nav className="navbar navbar-expand-lg" style={{backgroundColor:"yellow"}}>
+     <nav className="navbar navbar-expand-lg" style={{backgroundColor:"skyblue"}}>
   <div className="container-fluid">
     <a className="navbar-brand" href="/">Sathay</a>
     <div className="collapse navbar-collapse" id="navbarSupportedContent">

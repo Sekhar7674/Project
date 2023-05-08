@@ -12,7 +12,7 @@ export default function Login(){
     const formSubmit = event=>{
         event.preventDefault();
         axios.post("http://127.0.0.1:8090/loginUser",user).then(response=>{
-            if(response.data!=0){
+            if(response.data!==0){
                 nagavate(`/user/${response.data}`)
                 setUser({})
             }
@@ -23,26 +23,40 @@ export default function Login(){
 
     return <>
         <div className="row">
-            <div className="col-4"></div>
-            <div className="col-4">
-                <h2>Login</h2>
+            <div className="col-3"></div>
+            <div className="col-6" style={{backgroundColor:"pink"}}>
+                <h2 className="text-center">Login</h2>
             <form onSubmit={formSubmit}>
-            <div>
-                    <label htmlFor="name" className="col-form-label">Name</label>
-                    <input type="text" className="form-control" id="name" 
-                    value={user.name||""} onChange={changeValue}/>
-                </div>
-
-                <div>
-                    <label htmlFor="password" className="form-label">Password</label>
-                    <input type="password" className="form-control" id="password" 
-                    value={user.password||""} onChange={changeValue}/>
-                </div>
-                <br></br>
-                <div className="text-center">
-                    <button type="submit" className="btn btn-primary">Login</button>
-                    Create New Account<a href="/reg">Register</a>
-                </div>
+                <table cellPadding={5} align="center">
+                    <tbody>
+                        <tr>
+                            <th>
+                                <label htmlFor="name" className="col-form-label">Name</label>
+                            </th>
+                            <td>
+                                <input type="text" className="form-control" id="name" 
+                                    value={user.name||""} onChange={changeValue}/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <label htmlFor="password" className="form-label">Password</label>
+                            </th>
+                            <td>
+                                <input type="password" className="form-control" id="password" 
+                                    value={user.password||""} onChange={changeValue}/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <button type="submit" className="btn btn-primary">Login</button>
+                            </th>
+                            <td>
+                                Don't have an Account?  <a href="/reg">Register</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </form>
             </div>
         </div>
